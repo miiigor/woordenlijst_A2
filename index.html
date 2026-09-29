@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="NL A2">
+<meta name="theme-color" content="#0f3d3e"><link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png"><link rel="stylesheet" href="style.css"><title>Dutch A2 Trainer</title></head>
+<body><header><div class="seg"><button id="d1">NL → RU</button><button id="d2">RU → NL</button></div>
+<div class="seg tabs"><button id="t1">Study</button><button id="t2">Words</button></div><div id="stats"></div></header>
+<main id="study"><div id="card"><div id="q"></div><div id="a" hidden></div><div id="fb" hidden></div></div><div id="opts"></div>
+<details><summary>Backup</summary><div class="io"><button id="exp">Export JSON</button><label>Import JSON<input type="file" id="imp" accept=".json,application/json" hidden></label></div></details></main>
+<main id="words" hidden><input id="flt" type="search" placeholder="Filter words…"><div id="note"></div><div class="tw"><table id="tbl"></table></div></main>
+<footer id="acts"></footer><script src="srs.js"></script><script src="app.js"></script></body></html>
