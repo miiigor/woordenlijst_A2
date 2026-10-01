@@ -1,10 +1,9 @@
 (function(g){
 const DAY=864e5,STEPS=[1,2,4,8,16,32,64,128];
 const key=(d,id)=>d+':'+id;
-const blank=k=>({key:k,reps:0,correct:0,hinted:0,wrong:0,last:null,due:0,interval:0,level:0});
-const score=r=>r==='correct'?1:r==='hint'?0.5:0;
+const blank=k=>({key:k,reps:0,correct:0,hinted:0,hintUsed:0,wrong:0,last:null,due:0,interval:0,level:0});
 // Правила расписания (интервал в днях). Меняйте STEPS и формулы ниже.
-function schedule(s,r,now){s=Object.assign({},s);const prev=s.interval||0;s.reps++;s.last=now;
+function schedule(s,r,now,used){s=Object.assign({},s);const prev=s.interval||0,hu=s.hintUsed===undefined?(s.hinted||0):s.hintUsed;s.hintUsed=hu+((r==='hint'||used)?1:0);s.reps++;s.last=now;
  if(r==='correct'){s.correct++;s.level=Math.min(s.level+1,STEPS.length);s.interval=STEPS[s.level-1];}
  else if(r==='hint'){s.hinted++;s.level=Math.max(s.level,1);s.interval=Math.max(1,Math.round(prev*1.3));}
  else{s.wrong++;s.level=Math.max(0,s.level-2);s.interval=10/1440;}
@@ -29,6 +28,6 @@ function validateImport(d){
   for(const f of['reps','correct','hinted','wrong','level','interval','due'])if(!Number.isFinite(p[f]))return 'damaged field '+f;
   if(p.last!==null&&!Number.isFinite(p.last))return 'damaged field last';}
  return null;}
-g.SRS={key,blank,score,schedule,buildQueue,makeOptions,validateImport,STEPS};
+g.SRS={key,blank,schedule,buildQueue,makeOptions,validateImport,STEPS};
 if(typeof module!=='undefined')module.exports=g.SRS;
 })(typeof window!=='undefined'?window:globalThis);

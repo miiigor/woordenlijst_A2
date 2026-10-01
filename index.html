@@ -4,8 +4,10 @@
 <meta name="theme-color" content="#0f3d3e"><link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png"><link rel="stylesheet" href="style.css"><title>Dutch A2 Trainer</title></head>
 <body><header><div class="seg"><button id="d1">NL → RU</button><button id="d2">RU → NL</button></div>
-<div class="seg tabs"><button id="t1">Study</button><button id="t2">Words</button></div><div id="stats"></div></header>
-<main id="study"><div id="card"><div id="q"></div><div id="a" hidden></div><div id="fb" hidden></div></div><div id="opts"></div>
-<details><summary>Backup</summary><div class="io"><button id="exp">Export JSON</button><label>Import JSON<input type="file" id="imp" accept=".json,application/json" hidden></label></div></details></main>
-<main id="words" hidden><input id="flt" type="search" placeholder="Filter words…"><div id="note"></div><div class="tw"><table id="tbl"></table></div></main>
+<div class="seg tabs"><button id="t1">Study</button><button id="t2">Words</button></div>
+<div id="sb"><div id="stats"></div><details id="bk"><summary id="bks">Backup</summary><div class="io"><button id="exp">Export JSON</button><label>Import JSON<input type="file" id="imp" accept=".json,application/json" hidden></label></div></details></div></header>
+<main id="study"><div id="card"><div id="q"></div><div id="a" hidden></div><div id="fb" hidden></div></div><div id="opts"></div></main>
+<main id="words" hidden><div id="wsum"></div><input id="flt" type="search" placeholder="Filter by word…"><div id="chips"></div>
+<div class="sortbar"><select id="srt"><option value="dutch">Dutch</option><option value="russian">Russian</option><option value="english">English</option><option value="n">Done</option><option value="known">Known</option><option value="hint">Hints</option><option value="unk">Unknown</option></select><button id="dirb"></button></div>
+<div id="list"></div></main>
 <footer id="acts"></footer><script src="srs.js"></script><script src="app.js"></script></body></html>
