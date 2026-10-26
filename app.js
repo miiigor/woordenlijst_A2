@@ -25,17 +25,18 @@ function stats(){$('#stats').innerHTML=row('Session',sess[dir],`<span>To Do <b>$
 function show(){cur=queue[0];hintShown=busy=false;$('#a').hidden=$('#fb').hidden=true;$('#opts').innerHTML='';
  if(!words.length){$('#q').textContent='Vocabulary not loaded. Open the app once with internet.';acts([]);return stats();}
  if(!cur){$('#q').textContent='All caught up for now';acts([]);return stats();}
- showQ(cur);acts([[['Show options',hints,'ghost']],[['I know',()=>finish('correct'),'good'],["I don't know",()=>finish('wrong'),'bad']]]);stats();}
+ showQ(cur);acts([[['I know',know,'good'],['Show options',hints]]]);stats();}
+function know(){if(busy)return;showA(cur);$('#a').hidden=false;acts([[['Next',()=>finish('correct',true),'good']],[["I don't know",()=>finish('wrong',true),'ghost bad']]]);}
 function hints(){hintShown=true;const o=$('#opts');
  S.makeOptions(cur,words,dir).forEach(x=>{const b=document.createElement('button');b.textContent=x.text;
   b.onclick=()=>{if(busy)return;b.classList.add(x.ok?'good':'bad');finish(x.ok?'hint':'wrong');};o.append(b);});
  acts([[["I don't know",()=>finish('wrong'),'bad']]]);}
-async function finish(res){if(busy)return;busy=true;const w=cur,k=S.key(dir,w.id),used=hintShown;
+async function finish(res,adv){if(busy)return;busy=true;const w=cur,k=S.key(dir,w.id),used=hintShown;
  const s=S.schedule(prog[k]||S.blank(k),res,Date.now(),used);prog[k]=s;await put('progress',[s]);
  const z=sess[dir];z.n++;res==='wrong'?z.unk++:z.known++;if(used)z.hint++;
+ queue.shift();if(res==='wrong')queue.splice(Math.min(4,queue.length),0,w);if(adv)return show();
  showA(w);$('#a').hidden=false;const fb=$('#fb');fb.hidden=false;
  fb.textContent=res==='wrong'?'Unknown':res==='hint'?'Known · with a hint':'Known';fb.className=res==='wrong'?'bad':'good';
- queue.shift();if(res==='wrong')queue.splice(Math.min(4,queue.length),0,w);
  acts([[['Next',show,'good']]]);stats();}
 // ---- words list
 const P=v=>v===null?'–':Math.round(v*100)+'%',fd=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'short'});
